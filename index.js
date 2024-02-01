@@ -7,7 +7,7 @@ import router from "./routes/web.js";
 dotenv.config();
 
 // console.log(process.env);
-const port = process.env.APP_PORT || 5000
+const port = process.env.PORT || 5000
 const app = express();
 
 try {
