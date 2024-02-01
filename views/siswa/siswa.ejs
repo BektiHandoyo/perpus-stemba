@@ -1,0 +1,28 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+    <table class=" text-center table table-bordered">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Kelas</th>
+                <th>Jenis Kelamin</th>
+            </tr>
+        </thead>
+        <% let i = 1;  %>
+        <tbody>
+
+            <% daftarSiswa.forEach(siswa => { %>
+                <tr>
+                    <td><%= i %></td>
+                    <td><%= siswa.nis %></td>
+                    <td><%= siswa.nama %></td>
+                    <td><%= siswa.kelas %></td>
+                    <td><%= siswa.gender %></td>
+                </tr>
+                <% i++ %>
+            <% }) %>
+        </tbody>
+    </table>
+<%- include('../partials/foot') %>

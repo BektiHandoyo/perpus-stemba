@@ -1,0 +1,33 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar')  %>
+    <form action="/siswa" method="post" class="m-3">
+        <div class="p-3">
+          <label for="nis" class="form-label">NIS</label>
+          <input type="number" class="form-control" id="nis" name="nis" required>
+        </div>
+        <div class="p-3">
+          <label for="nama" class="form-label">Nama</label>
+          <input type="text" class="form-control" id="nama" name="nama" required>
+        </div>
+        <div class="p-3">
+            <label for="kelas">Pilih Kelas:</label>
+            <select name="kelas" id="kelas" class="form-select" aria-label="Default select example" required>
+                <% daftarKelas.forEach(kelas => { %>
+                    <option value=" <%= kelas %>">  <%= kelas %> </option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="p-3">
+            <p>Jenis Kelamin</p>
+            <div>
+                <input type="radio" value="Laki-laki" name="gender" class="btn-lg" id="laki-laki" checked>
+                <label for="laki-laki">Laki-laki</label>
+            </div>
+            <div>
+                <input type="radio" value="Perempuan" name="gender" class="btn-lg" id="perempuan" >
+                <label for="perempuan">Perempuan</label>
+            </div>
+        </div>
+        <button type="submit" class="m-3 btn btn-primary">Submit</button>
+      </form>
+<%- include('../partials/foot')  %>

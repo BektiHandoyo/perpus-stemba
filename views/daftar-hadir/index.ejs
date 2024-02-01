@@ -1,0 +1,63 @@
+
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+<form id="datepicker" class="form d-flex justify-content-left m-4 ">
+        <input type="date" value="<%= date %>" class="ms-auto" max="<%= batasTanggal %>">
+</form>
+<kehadiran>
+    <% if (daftarHadir.length == 0) { %>
+        <div class="w-100 d-flex justify-content-center align-items-center" style="height: 60vh;">
+            <div class="mt-4 p-5 bg-danger w-50 text-white rounded text-center">
+                <h1>Belum ada yang mendaftar</h1>
+                <p class="fs-5"> Mungkin libur atau belum ada yang mendaftar</p>
+            </div>
+        </div>
+    <% } else { %>
+        <table class="text-center table table-bordered">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Waktu Hadir</th>
+                </tr>
+            </thead>
+            <% let i = 1;  %>
+            <tbody>
+                <% let waktu; %>
+                <% daftarHadir.forEach(kehadiran => { %>
+                    <% waktu = new Date(kehadiran.createdAt) %>
+                    <tr>
+                        <td><%= i %></td>
+                        <td><%= kehadiran.siswa %></td>
+                        <td><%= kehadiran.nama %></td>
+                        <td><%= kehadiran.kelas %></td>
+                        <td class="text-primary"><%= `${waktu.getHours()}:${waktu.getMinutes()}:${waktu.getSeconds()}` %></td>
+                    </tr>
+                    <% i++ %>
+                <% }) %>
+            </tbody>
+        </table>
+     <% } %>
+</kehadiran>
+<script>
+    const daftarSekarang = document.getElementsByTagName('kehadiran')[0]
+    const datepicker = document.getElementById('datepicker');
+    
+    datepicker.addEventListener('change', async (e) => {
+        const date = e.target.value
+        const data = await fetch(`/daftar/${date}`);
+        const daftarHadir = await data.text()
+        daftarSekarang.innerHTML = (daftarHadir.split('<kehadiran>')[1].split('</kehadiran>')[0]);
+        window.location.href = `/daftar/${date}`
+    })
+
+    setInterval(async () => {
+        const url = window.location.href
+        const data = await fetch(url);
+        const daftarHadir = await data.text()
+        daftarSekarang.innerHTML = (daftarHadir.split('<kehadiran>')[1].split('</kehadiran>')[0]);
+    },3000)
+</script>
+<%- include('../partials/foot') %>

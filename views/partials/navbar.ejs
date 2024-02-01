@@ -1,0 +1,33 @@
+<% 
+  const formatDate = (date) => {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+%>
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-4" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-2" href="/">Perpus STEMBA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="/siswa/tambah">Daftarkan Siswa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/daftar/<%= formatDate(new Date()) %>">Daftar Hadir</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
