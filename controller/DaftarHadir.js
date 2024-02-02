@@ -63,7 +63,7 @@ export const daftarHadirAdd = async(req, res) => {
             createdAt : todayDate,
         })
 
-        res.status(201).json({message : "berhasil di tambahkan"})
+        res.status(201).json({message : "berhasil di tambahkan", nama : siswa.dataValues.nama})
     } catch (error) {
         console.log(error);
         res.status(500).json({message : "Internal Server Error"})       
