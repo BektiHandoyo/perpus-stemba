@@ -6,12 +6,22 @@
 </form>
 <kehadiran>
     <% if (daftarHadir.length == 0) { %>
-        <div class="w-100 d-flex justify-content-center align-items-center" style="height: 60vh;">
-            <div class="mt-4 p-5 bg-danger w-50 text-white rounded text-center">
-                <h1>Belum ada yang mendaftar</h1>
-                <p class="fs-5"> Mungkin libur atau belum ada yang mendaftar</p>
+        <% const hari = new Date(date).toLocaleDateString('id-ID', {weekday : 'long'})  %>
+        <%  if(hari == 'Sabtu' || hari == 'Minggu') { %>
+            <div class="w-100 d-flex justify-content-center align-items-center" style="height: 60vh;">
+                <div class="mt-4 p-5 bg-danger w-50 text-white rounded text-center">
+                    <h1>Belum ada yang absensi</h1>
+                    <p class="fs-5">Hari Ini kan hari libur :)</p>
+                </div>
+            </div>            
+        <% } else {%>
+            <div class="w-100 d-flex justify-content-center align-items-center" style="height: 60vh;">
+                <div class="mt-4 p-5 bg-danger w-50 text-white rounded text-center">
+                    <h1>Belum ada yang absensi</h1>
+                    <p class="fs-5">Ajak teman-temanmu buat baca buku di perpustakaan yuk! :) </p>
+                </div>
             </div>
-        </div>
+        <% } %>
     <% } else { %>
         <table class="text-center table table-bordered">
             <thead>
@@ -23,11 +33,20 @@
                     <th>Waktu Hadir</th>
                 </tr>
             </thead>
-            <% let i = 1;  %>
+            <% 
+                let i = 1;  
+                function changeTimezone(date, ianatz) {
+                    var invdate = new Date(date.toLocaleString('en-US', {
+                        timeZone: ianatz
+                    }));
+                    var diff = date.getTime() - invdate.getTime();
+                    return new Date(date.getTime() - diff);
+                }
+            %>
             <tbody>
                 <% let waktu; %>
                 <% daftarHadir.forEach(kehadiran => { %>
-                    <% waktu = new Date(kehadiran.createdAt) %>
+                    <% waktu = changeTimezone(new Date(kehadiran.createdAt),'Asia/Jakarta' ) %>
                     <tr>
                         <td><%= i %></td>
                         <td><%= kehadiran.siswa %></td>
